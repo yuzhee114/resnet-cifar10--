@@ -1,0 +1,5 @@
+data/
+save_*/
+pretrained_models/
+*.th
+__pycache__/
