@@ -1,3 +1,22 @@
+# ResNet-CIFAR10 Replication (MIAE01)
+
+Course project: reproducing He et al., *Deep Residual Learning for Image
+Recognition* (CVPR 2016, arXiv:1512.03385) on CIFAR-10.
+
+## Reproduction Metadata
+
+- Upstream repository: https://github.com/akamaster/pytorch_resnet_cifar10
+- Starting commit: d5489e8995e81e91ce6b1d69dcc98ad579b0b153 (2021-07-20)
+- Upstream history imported on 2026-11-08 (`git fetch upstream` + merge)
+- Original author: Yerlan Idelbayev — BSD-2-Clause License (see LICENSE)
+- Note on repository size: `pretrained_models/*.th` exist only in the inherited
+  upstream history. They are untracked at HEAD and ignored via `.gitignore`;
+  weights are re-obtained with `scripts/download_pretrained.py`.
+- Files modified/added by this group: `git diff --name-status d5489e8..HEAD`
+
+---
+
+
 # Proper ResNet Implementation for CIFAR10/CIFAR100 in Pytorch
 [Torchvision model zoo](https://github.com/pytorch/vision/tree/master/torchvision/models) provides number of implementations of various state-of-the-art architectures, however, most of them are defined and implemented for ImageNet.
 Usually it is straightforward to use the provided models on other datasets, but some cases require manual setup.
