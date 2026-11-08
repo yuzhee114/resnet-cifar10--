@@ -1,0 +1,21 @@
+# ---------------------------------------------------------------------------
+# Pinned environment for the MIAE01 ResNet / CIFAR-10 replication.
+#
+# Recorded : 2026-11-08
+# OS       : Windows 11
+# GPU      : NVIDIA GeForce RTX 2060 (6 GB), driver 610.62
+# Python   : 3.12  (see env.md for the full record)
+#
+# Install:
+#     pip install -r requirements.txt
+#
+# The extra index is what makes pip pick the CUDA 12.1 build of torch /
+# torchvision instead of the default CPU-only wheels. If you are on Colab,
+# delete both lines below and just install the versions that ship with the
+# runtime, then update this file with `pip freeze` so the pins stay truthful.
+# ---------------------------------------------------------------------------
+--extra-index-url https://download.pytorch.org/whl/cu121
+
+torch==2.5.1
+torchvision==0.20.1
+numpy==1.26.4
