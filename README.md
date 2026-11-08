@@ -76,6 +76,17 @@ If you find this implementation useful and want to cite/mention this page, here 
 
 Full record: [env.md](env.md).
 
+## Environment
+
+| Item | Value |
+|---|---|
+| OS | Windows 11 |
+| Python | 3.11.18 (`conda` environment `resnet-cifar10-replication`) |
+| torch / torchvision | 2.5.1+cu121 / 0.20.1+cu121 |
+| GPU | NVIDIA GeForce RTX 2060, 6 GB, driver 610.62 |
+
+Full record: [env.md](env.md).
+
 ## Installation
 
 ```bat
@@ -113,7 +124,8 @@ by 10 at 32k and 48k iterations (epochs 82 and 123).
 ```bat
 python trainer.py --arch=resnet20 --epochs=164 --lr-milestones=82,123 ^
     --seed=0 --val-split=5000 -j 2 --save-dir=save_resnet20_s0 ^
-    --log-csv=logs/resnet20_seed0.csv --config-out=logs/resnet20_seed0.json
+    --log-csv=logs/resnet20_seed0.csv --config-out=logs/resnet20_seed0.json ^
+    --run-csv=logs/runs.csv
 ```
 
 ResNet-110 and ResNet-1202 additionally use the paper's warm-up:
@@ -121,25 +133,23 @@ ResNet-110 and ResNet-1202 additionally use the paper's warm-up:
 ```bat
 python trainer.py --arch=resnet110 --epochs=164 --lr-milestones=82,123 ^
     --warmup-iters=400 --seed=0 --val-split=5000 -j 2 ^
-    --save-dir=save_resnet110_s0 --log-csv=logs/resnet110_seed0.csv
+    --save-dir=save_resnet110_s0 --log-csv=logs/resnet110_seed0.csv ^
+    --run-csv=logs/runs.csv
 ```
 
 ResNet-1202 (19.4 M parameters) requires about 16 GB of VRAM and is not run on
 this 6 GB GPU.
 
-All models, three seeds:
+All models, three seeds, and the aggregation of the runs into
+`results/summary.csv`:
 
 ```powershell
-foreach ($arch in "resnet20","resnet32","resnet44","resnet56","resnet110") {
-  foreach ($seed in 0,1,2) {
-    python trainer.py --arch=$arch --epochs=164 --lr-milestones=82,123 `
-      --seed=$seed --val-split=5000 -j 2 `
-      --save-dir="save_${arch}_s${seed}" `
-      --log-csv="logs/${arch}_seed${seed}.csv" `
-      --config-out="logs/${arch}_seed${seed}.json"
-  }
-}
+powershell -ExecutionPolicy Bypass -File scripts/run_sweep.ps1
+python scripts/summarize.py
 ```
+
+`scripts/run_sweep.ps1` skips runs whose per-epoch CSV is already complete, so
+it can be restarted after an interruption.
 
 ## Outputs
 
@@ -169,6 +179,7 @@ reported in Table 6 of the paper.
 |---|---|
 | `logs/<arch>_seed<S>.csv` | per-epoch train/val loss and accuracy, learning rate, wall-clock |
 | `logs/<arch>_seed<S>.json` | resolved configuration, torch/CUDA versions, GPU name, split sizes |
-| `results/summary.csv` | mean ± std per model, aggregated from the per-run CSVs |
+| `logs/runs.csv` | one row per finished run: test error, wall-clock, git commit |
+| `results/summary.csv` | mean ± std per model, written by `scripts/summarize.py` |
 
 Checkpoints (`save_*/`, `*.th`) and `data/` are ignored by git.
