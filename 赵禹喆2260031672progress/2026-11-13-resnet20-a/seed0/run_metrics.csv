@@ -1,0 +1,2 @@
+timestamp,arch,seed,epochs,batch_size,lr_milestones,warmup_iters,best_val,test_acc,test_err,minutes,git_commit
+2026-11-13 05:21:29,resnet20,0,164,128,"82,123",0,91.740,90.870,9.130,294.0,f1acc6e

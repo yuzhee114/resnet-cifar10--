@@ -1,0 +1,6 @@
+best validation Prec@1 91.740 at epoch 139
+final evaluation on the 10k test images:
+Test: [0/79]	Time 0.085 (0.085)	Loss 0.3364 (0.3364)	Prec@1 90.625 (90.625)
+Test: [50/79]	Time 0.085 (0.085)	Loss 0.4351 (0.3790)	Prec@1 89.844 (90.824)
+ * Prec@1 90.870
+RESULT arch=resnet20 seed=0 epochs=164 best_val=91.740 test_acc=90.870 test_err=9.130

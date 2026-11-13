@@ -1,0 +1,41 @@
+{
+  "args": {
+    "arch": "resnet20",
+    "workers": 0,
+    "epochs": 164,
+    "start_epoch": 0,
+    "batch_size": 128,
+    "lr": 0.1,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "print_freq": 50,
+    "resume": "",
+    "evaluate": false,
+    "pretrained": false,
+    "half": false,
+    "save_dir": "checkpoints",
+    "save_every": 10,
+    "seed": 0,
+    "val_split": 5000,
+    "lr_milestones": "82,123",
+    "warmup_iters": 0,
+    "log_csv": "epoch_metrics.csv",
+    "run_csv": "run_metrics.csv",
+    "config_out": "config.json",
+    "test_every": 0
+  },
+  "torch": "2.15.0",
+  "cuda": null,
+  "cudnn": null,
+  "device": "cpu",
+  "gpu": null,
+  "n_train": 45000,
+  "n_val": 5000,
+  "n_test": 10000,
+  "iters_per_epoch": 352,
+  "milestones": [
+    82.0,
+    123.0
+  ],
+  "total_iters": 57728
+}
